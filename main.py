@@ -22,7 +22,6 @@ def add():
      		nginx.Key('listen', input_port),
      		nginx.Key('proxy_pass', upstream ),
 		nginx.Key('proxy_protocol', 'on'),
-	#	nginx.Key('set_real_ip_from', '$proxy_protocol_addr')
  		)
 	c.add(s)
 	nginx.dumpf(c, path )
