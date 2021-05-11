@@ -1,4 +1,5 @@
 import nginx
+import requests
 import os
 from flask import Flask, jsonify, request
 app = Flask(__name__, static_folder='.', static_url_path='')
@@ -26,7 +27,8 @@ def add():
 	c.add(s)
 	nginx.dumpf(c, path )
 	os.system("/etc/init.d/nginx reload")
-	return "Done!"
+	return requests.get('http://194.5.193.18:5000/').content
+#	return "Done!"
 	
 
 
