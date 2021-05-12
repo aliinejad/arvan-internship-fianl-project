@@ -48,6 +48,8 @@
     - name: Install inotify python package
       pip:
         name: inotify
+        executable: pip2
+
 
 
     - name: Git checkout
