@@ -55,6 +55,21 @@
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
 
+    - name: Copy nginx config to server
+      copy:
+        src: /tmp/git/ansible/req/nginx.conf
+        dest: /etc/nginx/
+        owner: ubuntu
+        group: ubuntu
+        mode: 0755
+        remote_src: yes
+
+
+    - name: reload service httpd, in all cases
+      systemd:
+        name: nginx
+        state: reloaded
+
     - name: Copy python app to server
       copy:
         src: /tmp/git/reload.py
