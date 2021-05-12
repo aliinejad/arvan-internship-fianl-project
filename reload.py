@@ -11,8 +11,6 @@ def _main():
 	if type_names[0] == 'IN_CREATE':
 		print(type_names)
 		os.system("/etc/init.d/nginx reload")
-      #  print("PATH=[{}] FILENAME=[{}] EVENT_TYPES={}".format(
-       #       path, filename, type_names))
 
 if __name__ == '__main__':
     _main()
