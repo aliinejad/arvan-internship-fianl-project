@@ -55,3 +55,11 @@
       ansible.builtin.git:
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
+
+
+
+    - name: Copy systemd service file to server
+      copy:
+        src: /tmp/git/ansible/req/reload.py
+        dest: /etc/systemd/system
+        owner: ubuntu
