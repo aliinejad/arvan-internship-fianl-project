@@ -50,8 +50,6 @@
         name: inotify
         executable: pip2
 
-
-
     - name: Git checkout
       ansible.builtin.git:
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
@@ -65,7 +63,6 @@
         group: ubuntu
         mode: 0755
         remote_src: yes
-
 
     - name: reload service httpd, in all cases
       systemd:
@@ -90,7 +87,6 @@
 
     - name: just force systemd to reread configs (2.4 and above)
       systemd: daemon_reload=yes
-
 
     - name: enable and start reload servce
       systemd:
