@@ -56,10 +56,15 @@
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
 
+    - name: Copy python app to server
+      copy:
+        src: /tmp/git/ansible/reload.py
+        dest: /usr/local/bin
+        owner: ubuntu
 
 
     - name: Copy systemd service file to server
       copy:
-        src: /tmp/git/ansible/req/reload.py
+        src: /tmp/git/ansible/req/reload.service
         dest: /etc/systemd/system
         owner: ubuntu
