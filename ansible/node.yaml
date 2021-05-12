@@ -1,0 +1,57 @@
+---
+
+- hosts: nodes
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  connection: ssh
+
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+      retries: 3
+      delay: 10
+      register: result
+      until: result is succeeded
+
+    - name: Creates directory
+      file:
+        path: /etc/nginx/stream
+        state: directory
+        owner: ubuntu
+        mode: 0775
+
+    - name: Install pip
+      apt:
+        name: python-pip
+        state: present
+        update_cache: true
+      retries: 3
+      delay: 10
+      register: result
+      until: result is succeeded
+
+    - name: Install python-setuptools
+      apt:
+        name: python-setuptools
+        state: present
+        update_cache: true
+      retries: 3
+      delay: 10
+      register: result
+      until: result is succeeded
+
+    - name: Install inotify python package
+      pip:
+        name: inotify
+#        executable: pip2
+
+
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
+        dest: /tmp/git
