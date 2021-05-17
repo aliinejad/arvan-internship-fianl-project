@@ -110,4 +110,3 @@
         name: proxy_master.service
         state: started
         enabled: True
-
