@@ -5,7 +5,7 @@ Conflicts=getty@tty1.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /usr/local/bin/reload.py
+ExecStart=/usr/bin/python /usr/local/bin/proxy_master.py
 StandardInput=tty-force
 
 [Install]
