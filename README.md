@@ -6,6 +6,7 @@ layer4 proxy cluster
   
   ## workflow
   master : in master server client can add upstream by calling api and making config file. after that lsyncd sync config files with salve servers. 
+  
   salve : in slave servers changes detected by reload.service and inotify library . after that it reload nginx service  and proxy is ready . 
 
 ## api structure
