@@ -13,7 +13,7 @@ def add():
 	data=request.get_json()
 	input_port = data['input_port']
 	upstream = data['upstream']+ ":" + data['upstream_port']
-	path = "/etc/nginx/stream/" + input_port + ".conf"
+	path = "/config/" + input_port + ".conf"
 	
 	c = nginx.Conf()
 	s = nginx.Server()
@@ -25,7 +25,6 @@ def add():
  		)
 	c.add(s)
 	nginx.dumpf(c, path )
-	os.system("/etc/init.d/nginx reload")
 	return "Done!"
 	
 
