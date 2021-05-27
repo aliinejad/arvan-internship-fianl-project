@@ -8,15 +8,7 @@
 
   tasks:
 
-    - name: Install nginx
-      apt:
-        name: nginx
-        state: present
-        update_cache: true
-      retries: 3
-      delay: 10
-      register: result
-      until: result is succeeded
+    - include_tasks: docker_tasks.yml
 
     - name: Creates directory
       file:
@@ -35,78 +27,7 @@
       register: result
       until: result is succeeded
 
-
-    - name: Install pip
-      apt:
-        name: python-pip
-        state: present
-        update_cache: true
-      retries: 3
-      delay: 10
-      register: result
-      until: result is succeeded
-
-    - name: Install python-setuptools
-      apt:
-        name: python-setuptools
-        state: present
-        update_cache: true
-      retries: 3
-      delay: 10
-      register: result
-      until: result is succeeded
-
-    - name: Install flask python package
-      pip:
-        name: flask
-        executable: pip2
-
-    - name: Install python-nginx python package
-      pip:
-        name: python-nginx
-        executable: pip2
-
-
     - name: Git checkout
       ansible.builtin.git:
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
-
-    - name: Copy nginx config to server
-      copy:
-        src: /tmp/git/ansible/req/nginx.conf
-        dest: /etc/nginx/
-        owner: ubuntu
-        group: ubuntu
-        mode: 0755
-        remote_src: yes
-
-    - name: reload service nginx, in all cases
-      systemd:
-        name: nginx
-        state: reloaded
-
-    - name: Copy python app to server
-      copy:
-        src: /tmp/git/proxy_master.py
-        dest: /usr/local/bin
-        owner: ubuntu
-        group: ubuntu
-        mode: 0755
-        remote_src: yes
-
-    - name: Copy systemd service file to server
-      copy:
-        src: /tmp/git/ansible/req/proxy_master.service
-        dest: /etc/systemd/system
-        owner: ubuntu
-        remote_src: yes
-
-    - name: just force systemd to reread configs (2.4 and above)
-      systemd: daemon_reload=yes
-
-    - name: enable and start reload servce
-      systemd:
-        name: proxy_master.service
-        state: started
-        enabled: True
