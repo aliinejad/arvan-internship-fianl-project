@@ -31,3 +31,16 @@
       ansible.builtin.git:
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
+
+
+
+    - name: Create a master proxy container
+      docker_container:
+        name: master_proxy
+        image: test
+        state: started
+        volumes:
+          - /etc/nginx/stream:/code
+        network_mode: host
+        tty: yes 
+        interactive: yes 
