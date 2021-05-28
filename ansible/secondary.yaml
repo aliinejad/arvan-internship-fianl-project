@@ -1,6 +1,6 @@
 ---
 
-- hosts: master
+- hosts: nodes
   remote_user: ubuntu
   become: yes
   become_method: sudo
@@ -17,30 +17,10 @@
         owner: ubuntu
         mode: 0775
 
-    - name: Install lsyncd
-      apt:
-        name: lsyncd
-        state: present
-        update_cache: true
-      retries: 3
-      delay: 10
-      register: result
-      until: result is succeeded
-
     - name: Git checkout
       ansible.builtin.git:
         repo: 'https://github.com/aliinejad/arvan-internship-fianl-project.git'
         dest: /tmp/git
-
-
-    - name: Copy add server script 
-      copy:
-        src: /tmp/git/proxyserver_add.sh
-        dest: /bin
-        owner: ubuntu
-        group: ubuntu
-        mode: 0755
-        remote_src: yes
 
     - name: Install python-docker
       apt:
@@ -53,15 +33,14 @@
       until: result is succeeded
 
 
-
-
-    - name: Create a master proxy container
+    - name: Create a master secondary container
       docker_container:
-        name: master_proxy
-        image: madmad99/proxy-primary
+        name: secondary_proxy
+        image: madmad99/proxy-secondary
         state: started
         volumes:
-          - /etc/nginx/stream:/code
+          - /etc/nginx/stream:/etc/nginx/stream
         network_mode: host
         tty: yes 
         interactive: yes 
+
