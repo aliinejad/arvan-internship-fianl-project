@@ -24,9 +24,9 @@ light and easy sync layer4 proxy cluster
 ## installation
 
 ```console
-ansible-playbook ./ansible/master.yaml
+ansible-playbook ./ansible/primary.yaml
 
-ansible-playbook ./ansible/slave.yaml
+ansible-playbook ./ansible/secondary.yaml
 
 edit lsyncd config on master 
 
@@ -34,16 +34,13 @@ systemctl restart lsyncd.service
 
 ```
 
-## add worker 
+## add secondary
 
 
 ```console
 add yoour worker ip to ansible hosts 
 
-ansible-playbook ./ansible/slave.yaml
+ansible-playbook ./ansible/secondary.yaml
 
-edit lsyncd config on master 
-
-systemctl restart lsyncd.service 
-
+proxyserver_add.sh $secondary_servers_ip
 ```
