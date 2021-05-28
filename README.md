@@ -28,7 +28,7 @@ ansible-playbook ./ansible/primary.yaml
 
 ansible-playbook ./ansible/secondary.yaml
 
-edit lsyncd config on master 
+edit lsyncd config on primary 
 
 systemctl restart lsyncd.service 
 
