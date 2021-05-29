@@ -79,16 +79,5 @@
         mode: 0755
         remote_src: yes
 
-
-
-
-    - name: Create a master proxy container
-      docker_container:
-        name: master_proxy
-        image: madmad99/proxy-primary
-        state: started
-        volumes:
-          - /etc/nginx/stream:/code
-        network_mode: host
-        tty: yes 
-        interactive: yes 
+    - name: run docker compose
+      command: docker-compose -f /opt/compose/primary-compose.yaml up -d 
