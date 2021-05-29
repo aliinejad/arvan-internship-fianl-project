@@ -1,0 +1,9 @@
+version: '3'
+services:
+  website:
+    container_name: proxy_primary
+    image: madmad99/proxy-primary
+    network_mode: "host"
+    volumes:
+      - /etc/nginx/stream:/config
+

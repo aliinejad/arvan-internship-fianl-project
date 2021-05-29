@@ -53,6 +53,33 @@
       until: result is succeeded
 
 
+    - name: Install or upgrade docker-compose
+      get_url: 
+        url : "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64"
+        dest: /usr/local/bin/docker-compose
+        mode: 'a+x'
+        force: yes
+      when: >
+        docker_compose_current_version is not defined
+        or docker_compose_current_version is version(docker_compose_version, '<')
+
+    - name: Creates compose  directory
+      file:
+        path: /opt/compose
+        state: directory
+        owner: ubuntu
+        mode: 0775
+
+    - name: Copy compose 
+      copy:
+        src: /tmp/git/ansible/req/primary-compose.yaml
+        dest: /opt/compose
+        owner: ubuntu
+        group: ubuntu
+        mode: 0755
+        remote_src: yes
+
+
 
 
     - name: Create a master proxy container
