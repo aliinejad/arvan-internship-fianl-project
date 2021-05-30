@@ -1,0 +1,23 @@
+---
+- hosts: nodes
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  connection: ssh
+
+  tasks:
+
+
+    - name: update compose file 
+      command: yq w -i /opt/compose/secondary-compose.yaml "services.website.image" "dckr.hamresan.app/proxy-secondary:7"
+
+    - name: Log into private registry and force re-authorization
+      docker_login:
+        registry: dckr.hamresan.app
+        username: hamresan
+        password: MWVkZGYzMmJmNzFiYmIxNjhiN2RiNmQw
+        reauthorize: yes
+ 
+    - name: run docker compose
+      command: docker-compose -f /opt/compose/secondary-compose.yaml up -d 
+
