@@ -1,0 +1,16 @@
+---
+- hosts: master
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  connection: ssh
+
+  tasks:
+
+
+    - name: update compose file 
+      command: yq w -i /opt/compose/primary-compose.yaml "services.website.image" "dckr.hamresan.app/proxy-primary:10"
+
+ 
+    - name: run docker compose
+      command: docker-compose -f /opt/compose/primary-compose.yaml up -d 
