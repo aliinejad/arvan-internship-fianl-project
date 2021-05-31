@@ -59,5 +59,13 @@
         mode: 0755
         remote_src: yes
 
+    - name: Log into private registry and force re-authorization
+      docker_login:
+        registry: dckr.hamresan.app
+        username: hamresan
+        password: MWVkZGYzMmJmNzFiYmIxNjhiN2RiNmQw
+        reauthorize: yes
+ 
+
     - name: run docker compose
       command: docker-compose -f /opt/compose/secondary-compose.yaml up -d 

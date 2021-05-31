@@ -2,7 +2,7 @@ version: '3'
 services:
   website:
     container_name: proxy_primary
-    image: madmad99/proxy-primary
+    image: dckr.hamresan.app/proxy-primary:latest
     network_mode: "host"
     volumes:
       - /etc/nginx/stream:/config
